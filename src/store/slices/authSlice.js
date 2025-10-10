@@ -107,7 +107,7 @@ export const updatePassword = createAsyncThunk(
     }
   }
 );
-// update password
+// update profile
 export const updateProfile = createAsyncThunk(
   "auth/me/update",
   async (data, thunkApi) => {
@@ -149,11 +149,11 @@ const authSlice = createSlice({
       .addCase(login.pending, (state) => {
         state.isLoggingIn = true;
       })
-      .addCase(register.fulfilled, (state, action) => {
+      .addCase(login.fulfilled, (state, action) => {
         state.isLoggingIn = false;
         state.authUser = action.payload;
       })
-      .addCase(register.rejected, (state) => {
+      .addCase(login.rejected, (state) => {
         state.isLoggingIn = false;
       })
       .addCase(getUser.pending, (state) => {
@@ -178,10 +178,10 @@ const authSlice = createSlice({
       .addCase(forgotPassword.pending, (state) => {
         state.isRequestingForToken = true;
       })
-      .addCase(register.fulfilled, (state) => {
+      .addCase(forgotPassword.fulfilled, (state) => {
         state.isRequestingForToken = false;
       })
-      .addCase(register.rejected, (state) => {
+      .addCase(forgotPassword.rejected, (state) => {
         state.isRequestingForToken = false;
       })
       .addCase(resetPassword.pending, (state) => {

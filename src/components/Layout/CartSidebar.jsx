@@ -21,7 +21,7 @@ const CartSidebar = () => {
   if (cart) {
     total = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0)
   }
-  if (!isCartOpen) null
+  if (!isCartOpen) return null
   return <>
     {/* overlay */}
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40" onClick={() => dispatch(toggleSidebar())} />
@@ -38,7 +38,7 @@ const CartSidebar = () => {
           cart && cart.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-muted-foreground">Your cart is empty.</p>
-              <Link to={"/product"} onClick={() => dispatch(toggleCart())} className="inline-block mt-4 px-6 py-2 gradient-primary-foreground rounded-lg hover:glow-on-hover animate-smooth">Browse Products</Link>
+              <Link to={"/product"} onClick={() => dispatch(toggleCart())} className="inline-block mt-4 px-6 py-2 gradient-primary text-primary-foreground rounded-lg hover:glow-on-hover animate-smooth">Browse Products</Link>
             </div>
           ) : (
             <>
@@ -72,6 +72,14 @@ const CartSidebar = () => {
                     )
                   })
                 }
+              </div>
+              {/* total */}
+              <div className="border-t border-[hsla(var(--glass-border))] pt-4">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-lg font-semibold">Total:</span>
+                  <span className="text-xl font-bold text-primary">${total.toFixed(2)}</span>
+                </div>
+                <Link to={"/cart"} onClick={() => dispatch(toggleCart())} className="w-full block text-center gradient-primary text-primary-foreground rounded-lg hover:glow-on-hover animate-smooth font-semibold">View Cart & Checkout</Link>
               </div>
             </>
           )

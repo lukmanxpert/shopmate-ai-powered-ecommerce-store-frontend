@@ -169,7 +169,7 @@ const authSlice = createSlice({
         state.authUser = null;
       })
       .addCase(logout.fulfilled, (state) => {
-        state.authUser = {};
+        state.authUser = null;
       })
       .addCase(logout.rejected, (state) => {
         // eslint-disable-next-line no-self-assign

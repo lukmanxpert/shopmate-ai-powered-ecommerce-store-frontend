@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { X, LogOut, Upload, Eye, EyeOff } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import { logout, updatePassword, updateProfile } from "../../store/slices/authSlice";
 import { toggleAuthPopup } from "../../store/slices/popupSlice";
 
@@ -43,13 +42,16 @@ const ProfilePanel = () => {
     formData.append("newPassword", newPassword)
     formData.append("confirmNewPassword", confirmNewPassword)
     dispatch(updatePassword(formData))
+    setCurrentPassword("")
+    setNewPassword("")
+    setConfirmNewPassword("")
   }
 
   if (!isAuthPopupOpen || !authUser) return null
 
   return <>
     {/* overlay */}
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40" onClick={() => dispatch(toggleSidebar())} />
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40" onClick={() => dispatch(toggleAuthPopup())} />
 
     {/* profile panel */}
     <div className="fixed right-0 top-0 h-full w-96 z-50 glass-panel animate-slide-in-right overflow-y-auto">
@@ -83,7 +85,7 @@ const ProfilePanel = () => {
                 value={email} onChange={(e) => setEmail(e.target.value)}
                 className="w-full p-2 rounded border border-border bg-secondary text-foreground"
               />
-              <label htmlFor="" className="flex items-center gap-2 cursor-pointer text-sm text-muted-foreground">
+              <label className="flex items-center gap-2 cursor-pointer text-sm text-muted-foreground">
                 <Upload className="w-4 h-4 text-primary" />
                 <span>Upload Avatar</span>
                 <input

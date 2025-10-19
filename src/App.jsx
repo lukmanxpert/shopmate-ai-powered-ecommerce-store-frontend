@@ -37,7 +37,14 @@ const App = () => {
   }, [getUser])
 
   useEffect(() => {
-    dispatch(fetchAllProducts())
+    dispatch(fetchAllProducts({
+      category: "",
+      price: "0-10000",
+      search: "",
+      ratings: "",
+      availability: "",
+      page: 1
+    }))
   }, [])
 
   const { products } = useSelector(state => state.product)

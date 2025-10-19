@@ -174,12 +174,12 @@ const productSlice = createSlice({
       .addCase(fetchProductsWithAI.pending, (state) => {
         state.aiSearching = true;
       })
-      .addCase(fetchProductsWithAI.pending, (state, action) => {
+      .addCase(fetchProductsWithAI.fulfilled, (state, action) => {
         state.aiSearching = false;
         state.products = action.payload.products;
         state.totalProducts = action.payload.products.length;
       })
-      .addCase(fetchProductsWithAI.pending, (state) => {
+      .addCase(fetchProductsWithAI.rejected, (state) => {
         state.aiSearching = false;
       });
   },

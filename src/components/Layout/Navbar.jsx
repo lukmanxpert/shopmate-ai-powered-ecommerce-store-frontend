@@ -2,6 +2,7 @@ import { Menu, User, ShoppingCart, Sun, Moon, Search } from "lucide-react";
 import { useTheme } from "../../contexts/ThemeContext";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleAuthPopup, toggleCart, toggleSearchBar, toggleSidebar } from "../../store/slices/popupSlice";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { theme, toggleTheme } = useTheme()
@@ -22,7 +23,7 @@ const Navbar = () => {
           </button>
           {/* CENTER LOGO */}
           <div className="flex-1 flex justify-center">
-            <h1 className="text-2xl font-bold text-primary">Shopmate</h1>
+            <Link to={"/"} className="text-2xl font-bold text-primary">Shopmate</Link>
           </div>
           {/* RIGHT SIDE ICONS */}
           <div className="flex items-center space-x-2">

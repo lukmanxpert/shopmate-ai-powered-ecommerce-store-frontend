@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../lib/axios";
 import { toast } from "react-toastify";
+import { toggleAIModal } from "./popupSlice";
 
 export const fetchAllProducts = createAsyncThunk(
   "/product/fetchAll",
@@ -87,6 +88,27 @@ export const deleteReview = createAsyncThunk(
   }
 );
 
+export const fetchProductsWithAI = createAsyncThunk(
+  "/product/ai-search",
+  async (userPrompt, thunkAPI) => {
+    try {
+      const response = await axiosInstance.post(
+        "/product/ai-search",
+        userPrompt
+      );
+      thunkAPI.dispatch(toggleAIModal());
+      return response.data;
+    } catch (error) {
+      toast.error(
+        error.response.data.message || "Failed to fetch ai filtered products."
+      );
+      return thunkAPI.rejectWithValue(
+        error.response.data.message || "Failed to fetch ai filtered products."
+      );
+    }
+  }
+);
+
 const productSlice = createSlice({
   name: "product",
   initialState: {
@@ -148,6 +170,17 @@ const productSlice = createSlice({
       })
       .addCase(deleteReview.rejected, (state) => {
         state.isReviewDeleting = false;
+      })
+      .addCase(fetchProductsWithAI.pending, (state) => {
+        state.aiSearching = true;
+      })
+      .addCase(fetchProductsWithAI.pending, (state, action) => {
+        state.aiSearching = false;
+        state.products = action.payload.products;
+        state.totalProducts = action.payload.products.length;
+      })
+      .addCase(fetchProductsWithAI.pending, (state) => {
+        state.aiSearching = false;
       });
   },
 });

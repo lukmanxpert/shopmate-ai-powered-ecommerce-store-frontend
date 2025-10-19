@@ -40,7 +40,9 @@ const App = () => {
     dispatch(fetchAllProducts())
   }, [])
 
-  if (isCheckingAuth && !authUser) {
+  const { products } = useSelector(state => state.product)
+
+  if ((isCheckingAuth && !authUser) || !products) {
     return (
       <div className="flex items-center justify-center h-screen">
         <Loader className="size-10 animate-spin" />

@@ -36,6 +36,22 @@ export const fetchAllProducts = createAsyncThunk(
   }
 );
 
+export const fetchProductDetails = createAsyncThunk(
+  "/product/singleProduct",
+  async (id, thunkAPI) => {
+    try {
+      const response = await axiosInstance.get(`/product/singleProduct/${id}`);
+      return response.data.product;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response.data.message || "Failed to fetch product details."
+      );
+    }
+  }
+);
+
+
+
 const productSlice = createSlice({
   name: "product",
   initialState: {
@@ -63,6 +79,17 @@ const productSlice = createSlice({
         state.totalProducts = action.payload.totalProducts;
       })
       .addCase(fetchAllProducts.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(fetchProductDetails.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchProductDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        state.productDetails = action.payload;
+        state.productReviews = action.payload.reviews;
+      })
+      .addCase(fetchProductDetails.rejected, (state) => {
         state.loading = false;
       });
   },

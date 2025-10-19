@@ -51,7 +51,7 @@ const ProductSlider = ({ title, products }) => {
                   {/* badges */}
                   <div className="absolute top-3 left-3 flex flex-col space-y-2">
                     {
-                      new Date() - new Date(product.createdAt) < 30 * 24 * 60 * 60 * 100 && (
+                      new Date() - new Date(product.created_at) < 30 * 24 * 60 * 60 * 1000 && (
                         <span className="px-2 py-1 bg-primary text-primary-foreground text-xs font-semibold rounded">NEW</span>
                       )
                     }

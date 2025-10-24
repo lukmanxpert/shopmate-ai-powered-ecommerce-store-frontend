@@ -41,7 +41,22 @@ const Products = () => {
 
   const totalPages = Math.ceil(totalProducts / 10)
 
-  return <></>;
+  return <>
+    <div className="min-h-screen pt-20">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* mobile filter toggle */}
+          <button
+            onClick={() => setIsMobileFilterOpen(!isMobileFilterOpen)}
+            className="lg:hidden mb-4 p-3 glass-card hover:glow-on-hover animate-smooth flex items-center space-x-2"
+          >
+            <Filter className="w-5 h-5" />
+            <span>Filters</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </>;
 };
 
 export default Products;

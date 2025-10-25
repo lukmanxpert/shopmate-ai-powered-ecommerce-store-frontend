@@ -98,8 +98,49 @@ const Products = () => {
                   })}
                 </div>
               </div>
+              {/* availability */}
+              <div className="mb-6">
+                <h3 className="text-lg font-medium text-foreground mb-3">Availability</h3>
+                <div className="space-y-2">
+                  {["in-stock", "limited", "out-of-stock"].map(status => {
+                    return (
+                      <button
+                        key={status}
+                        onClick={() => setAvailability(availability === status ? "" : status)}
+                        className={`w-full p-2 text-left rounded ${availability === status ? "bg-primary/20" : "hover:bg-secondary"}`}
+                      >
+                        {status === "in-stock" ? "In Stock" : status === "limited" ? "LImited Stock" : "Out of Stock"}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+              {/* Category */}
+              <div className="mb-6">
+                <h3 className="text-lg font-medium text-foreground mb-3">Category</h3>
+                <div className="space-y-2">
+                  <button
+                    onClick={() => setSelectedCategory("")}
+                    className={`w-full p-2 text-left rounded ${!selectedCategory ? "bg-primary/20" : "hover:bg-secondary"}`}
+                  >
+                    All Categories
+                  </button>
+                  {categories.map(category => {
+                    return (
+                      <button
+                        key={category.id}
+                        onClick={setSelectedCategory(category.name)}
+                        className={`w-full p-2 text-left rounded ${selectedCategory === category.name ? "bg-primary/20" : "hover:bg-secondary"}`}
+                      >
+                        {category.name}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
             </div>
           </div>
+          {/* main content */}
         </div>
       </div>
     </div>

@@ -53,6 +53,53 @@ const Products = () => {
             <Filter className="w-5 h-5" />
             <span>Filters</span>
           </button>
+          {/* sidebar filters */}
+          <div className={`lg:block ${isMobileFilterOpen ? "block" : "hidden"} w-full lg:w-80 space-y-6`}>
+            <div className="glass-panel">
+              <h2 className="text-xl font-semibold text-foreground mb-6">Filters</h2>
+              {/* price range */}
+              <div className="mb-6">
+                <h3 className="text-lg font-medium text-foreground mb-3">Price Range</h3>
+                <div>
+                  <input
+                    type="range"
+                    min={"0"}
+                    max={"10000"}
+                    value={priceRange[1]}
+                    onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
+                    className="w-full"
+                  />
+                  <div className="flex justify-between text-sm text-muted-foreground">
+                    <span>${priceRange[0]}</span>
+                    <span>${priceRange[1]}</span>
+                  </div>
+                </div>
+              </div>
+              {/* rating */}
+              <div className="mb-6">
+                <h3 className="text-lg font-medium text-foreground mb-3">Rating</h3>
+                <div className="space-y-2">
+                  {[4, 3, 2, 1].map(rating => {
+                    return (
+                      <button
+                        key={rating}
+                        onClick={() => {
+                          setSelectedCategory(
+                            selectedCategory === rating ? 0 : rating
+                          )
+                        }}
+                        className={`flex items-center space-x-2 w-full p-2 rounded ${selectedRating === rating ? "bg-primary/20" : "hover:bg-secondary"}`}
+                      >
+                        {[...Array(5)].map((_, i) => {
+                          return <Star key={i} className={`w-4 h-4 ${i < rating ? "text-yellow-400 fill-current" : "text-gray-300"}`} />
+                        })}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

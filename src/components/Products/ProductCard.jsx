@@ -27,7 +27,7 @@ const ProductCard = ({ product }) => {
           }
           {
             product.ratings >= 4.5 && (
-              <span className="px-2 py-1 bg-gradient-to-r from-yellow-400 to-rose-500 text-white bg-primary text-primary-foreground text-xs font-semibold rounded">NEW</span>
+              <span className="px-2 py-1 bg-gradient-to-r from-yellow-400 to-rose-500 text-white bg-primary text-primary-foreground text-xs font-semibold rounded">TOP RATED</span>
             )
           }
         </div>

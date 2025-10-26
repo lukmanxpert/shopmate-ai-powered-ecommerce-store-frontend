@@ -5,7 +5,7 @@ import { fetchProductsWithAI } from "../../store/slices/productSlice";
 import { toggleAIModal } from "../../store/slices/popupSlice";
 
 const AISearchModal = () => {
-  const { userPrompt, setUserPrompt } = useState("")
+  const [userPrompt, setUserPrompt] = useState("")
   const { aiSearching } = useSelector(state => state.product)
   const { isAIPopupOpen } = useSelector(state => state.popup)
   const exampleText = [
@@ -61,7 +61,7 @@ const AISearchModal = () => {
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input
               type="text"
-              placeholder="e.g., 'A wireless headphone for gaming with good bass'"
+              placeholder="e.g. 'A wireless headphone for gaming with good bass'"
               value={userPrompt}
               onChange={(e) => setUserPrompt(e.target.value)}
               className="w-full pl-12 pr-4 py-4 bg-secondary border border-border rounded-lg focus:outline-none 

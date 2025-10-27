@@ -56,7 +56,7 @@ const CartSidebar = () => {
                             <p className="text-primary font-semibold">${item.product.price}</p>
                             {/* quantity controls */}
                             <div className="flex items-center space-x-2 mt-2">
-                              <button onClick={() => updateQuantity(item.product.id, item.quantity - 1)} className="p-1 rounded glass-card hover:glow-on-hover animate-smooth">
+                              <button onClick={() => updateQuantity(item.product.id, item.quantity - 1)} disabled={item.quantity === 1} className="p-1 rounded glass-card hover:glow-on-hover animate-smooth">
                                 <Minus className="w-4 h-4" />
                               </button>
                               <span className="w-8 text-center font-semibold">{item.quantity}</span>

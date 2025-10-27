@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Orders = () => {
-  const [statusFilter, setStatusFilter] = useState("")
+  const [statusFilter, setStatusFilter] = useState("All")
   const { myOrders } = useSelector(state => state.order)
   const dispatch = useDispatch()
 
@@ -12,7 +12,7 @@ const Orders = () => {
     // dispatch
   }, [])
 
-  const filterOrder = myOrders.filter(order => statusFilter === "all" || order.order_status === statusFilter)
+  const filterOrder = myOrders.filter(order => statusFilter === "All" || order.order_status === statusFilter)
 
   const getStatusIcon = (status) => {
 
@@ -54,11 +54,48 @@ const Orders = () => {
     }
   }
 
+  const statusArray = ["All", "Processing", "Shipped", "Delivered", "Cancelled"]
+
   const { authUser } = useSelector(state => state.auth)
   const navigateTo = useNavigate()
   if (!authUser) return navigateTo("/products")
 
-  return <></>;
+  return <>
+    <div className="min-h-screen pt-20">
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-foreground mb-2">My Orders</h1>
+          <p className="text-muted-foreground">Track and manage your order history.</p>
+        </div>
+
+        {/* status filter */}
+        <div className="glass-card p-4 mb-8">
+          <div className="flex items-center space-x-4 flex-wrap">
+            <div className="flex item-center space-x-2">
+              <Filter className="w-5 h-5 text-primary" />
+              <span className="font-medium">Filter by status: </span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {
+                statusArray.map(status => {
+                  return (
+                    <button
+                      key={status}
+                      onClick={() => setStatusFilter(status)}
+                      className={`px-4 py-2 rounded-lg font-medium transition-all capitalize ${statusFilter === status ? "gradient-primary text-primary-foreground" : "glass-card hover:glow-on-hover text-foreground"}`}
+                    >
+                      {status}
+                    </button>
+                  )
+                })
+              }
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </>;
 };
 
 export default Orders;

@@ -93,6 +93,94 @@ const Orders = () => {
           </div>
         </div>
 
+        {/* order list */}
+        {
+          filterOrder.length === 0 ? (
+            <div className="text-center glass-panel max-w-md mx-auto">
+              <Package className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+              <h2 className="text-xl font-semibold text-foreground mb-2">
+                No Orders Found
+              </h2>
+              <p className="text-muted-foreground">
+                {statusFilter === "All" ? "You have'nt place any order's yet." : `No order's with status "${statusFilter}" found.`}
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              {filterOrder.map(order => {
+                return (
+                  <div key={order.id} className="glass-card p-6">
+                    {/* order header */}
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 space-y-4 md:space-y-0">
+                      <div>
+                        <h3 className="text-lg font-semibold from-foreground mb-1">Orders #{order.id}</h3>
+                        <p className="text-muted-foreground">Place on{" "}{new Date(order.created_at).toLocaleDateString()}</p>
+                      </div>
+                      <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-2">
+                          {getStatusIcon(order.order_status)}
+                          <span className={`px-3 py-1 rounded text-sm font-medium capitalize ${getStatusColor(order.order_status)}`}>{order.order_status}</span>
+                        </div>
+
+                        <div className="text-right">
+                          <p className="text-sm text-muted-foreground">Total</p>
+                          <p className="text-xl font-bold text-primary">${order.total_price}</p>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    {/* order items */}
+                    <div className="space-y-4">
+                      {
+                        order?.order_items?.map(item => {
+                          <div key={item.product_id} className="flex items-center space-x-4 p-4 bg-secondary/50 rounded-lg">
+                            <img src={item.image} alt={item.title} className="w-16 h-16 object-cover rounded-lg" />
+                            <div className="flex min-w-0">
+                              <h4 className="font-medium text-foreground truncate">{item.title}</h4>
+                              <p className="text-sm text-muted-foreground">Quantity: {item.quantity}</p>
+                            </div>
+                            <div className="text-right">
+                              <p className="font-semibold text-foreground">${item.price}</p>
+                            </div>
+                          </div>
+                        })
+                      }
+                    </div>
+
+                    {/* order actions */}
+                    <div className="flex flex-wrap gap-3 mt-6 pt-6 border-t border-[hsla(var(--glass-border))]">
+                      <button className="px-4 py-2 glass-card hover:glow-on-hover animate-smooth text-sm">
+                        View Details
+                      </button>
+                      <button className="px-4 py-2 glass-card hover:glow-on-hover animate-smooth text-sm">
+                        Track Order
+                      </button>
+                      {order.status === "Delivered" && (
+                        <>
+                          <button className="px-4 py-2 glass-card hover:glow-on-hover animate-smooth text-sm">
+                            Write Review
+                          </button>
+                          <button className="px-4 py-2 glass-card hover:glow-on-hover animate-smooth text-sm">
+                            Reorder
+                          </button>
+                        </>
+                      )}
+
+
+                      {/* {order.status === "Processing" && (
+                        <button className="px-4 py-2 glass-card hover:glow-on-hover animate-smooth text-sm text-destructive">
+                          Cancel Order
+                        </button>
+                      )} */}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          )
+        }
+
       </div>
     </div>
   </>;

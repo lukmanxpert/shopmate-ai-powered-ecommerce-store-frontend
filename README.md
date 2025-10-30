@@ -5,3 +5,10 @@ test 04
 test 05
 test 06
 test 07
+
+h1{
+    mar: 1px;
+    pad: 1px;
+}
+
+ty-[]

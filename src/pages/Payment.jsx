@@ -7,6 +7,12 @@ import PaymentForm from "../components/PaymentForm";
 import { loadStripe } from "@stripe/stripe-js";
 
 const Payment = () => {
+  const { authUser } = useSelector(state => state.auth)
+  const navigateTo = useNavigate();
+  const [stripePromise, setStripePromise] = useState(null)
+
+  if (!authUser) return navigateTo("/products")
+
   return <></>;
 };
 

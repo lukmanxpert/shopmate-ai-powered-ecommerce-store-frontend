@@ -124,9 +124,99 @@ const Payment = () => {
                       />
                     </div>
                   </div>
-                  <div className="grid">
-                    
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        State *
+                      </label>
+                      <select
+                        value={shippingDetails.state}
+                        onChange={(e) => setShippingDetails({ ...shippingDetails, state: e.target.value })}
+                        className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-foreground"
+                      >
+                        <option value={"Dhaka"}>Dhaka</option>
+                        <option value={"Sylhet"}>Sylhet</option>
+                        <option value={"Chattagram"}>Chattagram</option>
+                        <option value={"Rajshahi"}>Rajshahi</option>
+                        <option value={"Khulna"}>Khulna</option>
+                        <option value={"Barishal"}>Barishal</option>
+                        <option value={"Rangpur"}>Rangpur</option>
+                        <option value={"Mymensing"}>Mymensing</option>
+                        <option value={"Cumilla"}>Cumilla</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Phone *
+                      </label>
+                      <input type="tel"
+                        required
+                        value={shippingDetails.phone}
+                        onChange={(e) => setShippingDetails({ ...shippingDetails, phone: e.target.value })}
+                        className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-foreground"
+                      />
+                    </div>
                   </div>
+
+                  <div className="mb-6">
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Address *
+                      </label>
+                      <input type="text"
+                        required
+                        value={shippingDetails.address}
+                        onChange={(e) => setShippingDetails({ ...shippingDetails, address: e.target.value })}
+                        className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-foreground"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        City *
+                      </label>
+                      <input type="text"
+                        required
+                        value={shippingDetails.city}
+                        onChange={(e) => setShippingDetails({ ...shippingDetails, city: e.target.value })}
+                        className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-foreground"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        ZIP Code *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={shippingDetails.zipCode}
+                        onChange={(e) => setShippingDetails({ ...shippingDetails, zipCode: e.target.value })}
+                        className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-foreground"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Country *
+                      </label>
+                      <select
+                        value={shippingDetails.country}
+                        onChange={(e) => setShippingDetails({ ...shippingDetails, country: e.target.value })}
+                        className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-foreground"
+                      >
+                        <option value={"Bangladesh"}>Bangladesh</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <button type="submit" className="w-full py-3 gradient-primary text-primary-foreground rounded-lg hover:glow-on-hover animate-smooth font-semibold">
+                    Continue to Payment
+                  </button>
+
                 </form>
               ) : (
                 ""

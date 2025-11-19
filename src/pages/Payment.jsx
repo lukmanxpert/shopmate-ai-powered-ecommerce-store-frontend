@@ -68,7 +68,75 @@ const Payment = () => {
     )
   }
 
-  return <></>;
+  return <>
+    <div className="min-h-screen pt-20">
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          {/* header */}
+          <div className="flex items-center space-x-4 mb-8">
+            <Link to={"/cart"} className="p-2 glass-card hover:glow-on-hover animate-smooth">
+              <ArrowLeft className="w-5 h-5 text-primary" />
+            </Link>
+          </div>
+
+          {/* progress step */}
+          <div className="flex items-center justify-center mb-12">
+            <div className="flex items-center space-x-4">
+              {/* step 01 */}
+              <div className={`flex items-center space-x-2 ${orderStep >= 1 ? "text-primary" : "text-muted-foreground"}`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${orderStep >= 1 ? "gradient-primary text-primary-foreground" : "bg-secondary"}`}>
+                  {orderStep > 1 ? <Check className="w-5 h-5" /> : "1"}
+                </div>
+                <span className="font-medium">Details</span>
+              </div>
+
+              <div className={`w-12 h-0 ${orderStep >= 2 ? "bg-primary" : "bg-border"}`} />
+
+              {/* step 02 */}
+              <div className={`flex items-center space-x-2 ${orderStep >= 2 ? "text-primary" : "text-muted-foreground"}`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${orderStep >= 2 ? "gradient-primary text-primary-foreground" : "bg-secondary"}`}>
+                  2
+                </div>
+                <span className="font-medium">Payment</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* form section */}
+            <div className="lg:col-span-2">
+              {orderStep === 1 ? (
+                // step 01: user details
+                <form onSubmit={handlePlaceOrder} className="glass-panel">
+                  <h2 className="text-xl font-semibold text-foreground mb-6">
+                    Shipping Information
+                  </h2>
+                  <div className="mb-6">
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Full Name *
+                      </label>
+                      <input type="text"
+                        required
+                        value={shippingDetails.fullName}
+                        onChange={(e) => setShippingDetails({ ...shippingDetails, fullName: e.target.value })}
+                        className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-foreground"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid">
+                    
+                  </div>
+                </form>
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </>;
 };
 
 export default Payment;

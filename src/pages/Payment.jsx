@@ -219,8 +219,54 @@ const Payment = () => {
 
                 </form>
               ) : (
-                ""
+                <Elements stripe={stripePromise}>
+                  <PaymentForm />
+                </Elements>
               )}
+            </div>
+
+            {/* order summary */}
+            <div className="lg:col-span-1">
+              <div className="glass-panel sticky top-24">
+                <h2 className="text-xl font-semibold text-foreground">
+                  Order Summary
+                </h2>
+
+                <div className="space-y-4 mb-6">
+                  {cart.map(item => {
+                    return (
+                      <div key={item.product.id} className="flex items-center space-x-3">
+                        <img src={item.product.images[0].url} alt={item.product.name} className="w-12 h-12 object-cover rounded" />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-foreground truncate">{item.product.name}</p>
+                          <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
+                        </div>
+                        <p className="text-sm font-semibold">${Number(item.product.price) * item.quantity}</p>
+                      </div>
+                    )
+                  })}
+                </div>
+
+                <div className="space-y-2 border-t border-[hsla(var(--glass-border))] pt-4">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Subtotal</span>
+                    <span>${total.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Shipping</span>
+                    <span className="text-green-500">{totalWithTax >= 50 ? "Free" : "$2"}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Tax</span>
+                    <span>{(total * 0.18).toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between font-semibold text-lg pt-2 border-t border-[hsla(var(--glass-border))]">
+                    <span>Total</span>
+                    <span className="text-primary">${totalWithTax.toFixed(2)}</span>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
         </div>

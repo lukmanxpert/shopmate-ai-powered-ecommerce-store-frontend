@@ -54,13 +54,18 @@ export const fetchProductDetails = createAsyncThunk(
 export const postReview = createAsyncThunk(
   "/product/post-new/review",
   async ({ productId, review }, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const authUser = state.auth.authUser;
     try {
       const response = await axiosInstance.put(
         `/product/post-new/review/${productId}`,
         review
       );
       toast.success(response.data.message);
-      return response.data.review;
+      return {
+        review: response.data.review,
+        authUser,
+      };
     } catch (error) {
       toast.error(error.response.data.message || "Failed to post review.");
       return thunkAPI.rejectWithValue(
@@ -153,7 +158,29 @@ const productSlice = createSlice({
       })
       .addCase(postReview.fulfilled, (state, action) => {
         state.isPostingReview = false;
-        state.productReviews = [action.payload, ...state.productReviews];
+        const newReview = action.payload.review;
+        const authUser = action.payload.authUser;
+        const existingReviewIndex = state.productReviews.findIndex(
+          (rev) => rev.reviewer?.id === newReview.user_id
+        );
+        if (existingReviewIndex !== -1) {
+          state.productReviews[existingReviewIndex].rating = Number(
+            newReview.rating
+          );
+          state.productReviews[existingReviewIndex].comment = newReview.comment;
+        } else {
+          state.productReviews = [
+            {
+              ...newReview,
+              reviewer: {
+                id: authUser?.id,
+                name: authUser?.name,
+                avatar: authUser?.avatar?.url,
+              },
+            },
+            ...state.productReviews,
+          ];
+        }
       })
       .addCase(postReview.rejected, (state) => {
         state.isPostingReview = false;

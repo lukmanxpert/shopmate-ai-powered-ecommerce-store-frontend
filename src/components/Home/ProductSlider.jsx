@@ -46,7 +46,7 @@ const ProductSlider = ({ title, products }) => {
               <Link key={product.id} to={`/product/${product.id}`} className="flex-shrink-0 w-80 glass-card hover:glow-on-hover animate-smooth group">
                 {/* product image */}
                 <div className="relative overflow-hidden rounded-lg mb-4">
-                  <img src={product.images[0].url} alt={product.name} className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300" />
+                  <img src={product.images[0].url} alt={product.name} className="w-full h-48 object-contain group-hover:scale-110 transition-transform duration-300" />
 
                   {/* badges */}
                   <div className="absolute top-3 left-3 flex flex-col space-y-2">

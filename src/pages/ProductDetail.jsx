@@ -86,7 +86,7 @@ const ProductDetail = () => {
                       onClick={() => setSelectedImage(index)}
                       className={`w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index ? "border-primary" : "border-transparent"}`}
                     >
-                      <img src={image?.url} alt={`${product.title} ${index + 1}`} className="w-full h-full object-cover" />
+                      <img src={image?.url} alt={`${product.title} ${index + 1}`} className="w-full h-full object-contain" />
                     </button>
                   )
                 })

@@ -219,9 +219,18 @@ const Payment = () => {
 
                 </form>
               ) : (
-                <Elements stripe={stripePromise}>
-                  <PaymentForm />
-                </Elements>
+                stripePromise ? (
+                  <Elements stripe={stripePromise}>
+                    <PaymentForm />
+                  </Elements>
+                ) : (
+                  <div className="glass-panel flex items-center justify-center py-8">
+                    <div className="text-center">
+                      <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                      <p className="text-muted-foreground">Loading payment system...</p>
+                    </div>
+                  </div>
+                )
               )}
             </div>
 

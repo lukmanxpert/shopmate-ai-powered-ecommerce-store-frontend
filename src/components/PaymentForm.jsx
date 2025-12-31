@@ -22,18 +22,25 @@ const PaymentForm = () => {
     if (!stripe || !elements) {
       return;
     }
+
     setIsProcessing(true)
+    setErrorMessage("")
     const cardElement = elements.getElement(CardElement)
     const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, { payment_method: { card: cardElement } })
+
     if (error) {
-      setErrorMessage(error)
+      setErrorMessage(error.message || "Payment failed. Please check your card details.")
+      setIsProcessing(false)
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
       toast.success("Payment Successful.")
       navigateTo("/")
+      dispatch(toggleOrderStep())
+      dispatch(clearCart())
+      setIsProcessing(false)
+    } else {
+      setErrorMessage("Payment processing failed. Please try again.")
+      setIsProcessing(false)
     }
-    setIsProcessing(false)
-    dispatch(toggleOrderStep())
-    dispatch(clearCart())
   }
   return <>
     <form onSubmit={handleSubmit} className="glass-panel">
